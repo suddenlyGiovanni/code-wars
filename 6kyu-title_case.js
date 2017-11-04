@@ -18,42 +18,54 @@ The JavaScript/CoffeeScript tests will pass undefined when this argument is unus
 titleCase('a clash of KINGS', 'a an the of') // should return: 'A Clash of Kings'
 titleCase('THE WIND IN THE WILLOWS', 'The In') // should return: 'The Wind in the Willows'
 titleCase('the quick brown fox') // should return: 'The Quick Brown Fox'
-*/ 
+*/
+
+// function titleCase(title, minorWords) {
+//     if (!title) {
+//         return '';
+//     }
+//     title = title.toLowerCase();
+//     const strArr = title.split(' ');
+//     // minorWords = undefined;
+//     console.log(strArr);
+//     if (minorWords) {
+//         let strArrExep = [];
+//         let first = strArr.shift();
+//         strArrExep.push(first[0].toUpperCase() + first.substr(1));
+
+//         console.log(strArr);
+
+//         const minorWordsArr = minorWords.toLowerCase().split(' ');  
+//         console.log(minorWordsArr);
+
+//         strArr.map(word => {
+//             if (!minorWordsArr.includes(word)) {
+//                 return strArrExep.push(word[0].toUpperCase() + word.substr(1));
+//             }
+//             return strArrExep.push(word);
+//         });
+
+
+//         console.log(strArrExep);
+
+//         return strArrExep.join(' ');
+//     } else {
+//         return strArr.map(word => word[0].toUpperCase() + word.substr(1)).join(' ');
+//     }
+// }
+
 
 function titleCase(title, minorWords) {
-    if (!title) {
-        return '';
-    }
-    title = title.toLowerCase();
-    const strArr = title.split(' ');
-    // minorWords = undefined;
-    console.log(strArr);
-    if (minorWords) {
-        let strArrExep = [];
-        let first = strArr.shift();
-        strArrExep.push(first[0].toUpperCase() + first.substr(1));
-        
-        console.log(strArr);
-
-        const minorWordsArr = minorWords.toLowerCase().split(' ');  
-        console.log(minorWordsArr);
-        
-        strArr.map(word => {
-            if (!minorWordsArr.includes(word)) {
-                return strArrExep.push(word[0].toUpperCase() + word.substr(1));
-            }
-            return strArrExep.push(word);
-        });
-        
-
-        console.log(strArrExep);
-        
-        return strArrExep.join(' ');
-    } else {
-        return strArr.map(word => word[0].toUpperCase() + word.substr(1)).join(' ');
-    }
+    var minorWords = typeof minorWords !== 'undefined' ? minorWords.toLowerCase().split(' ') : [];
+    return title.toLowerCase().split(' ').map(function (v, i) {
+        if (v != '' && ((minorWords.indexOf(v) === -1) || i == 0)) {
+            v = v.split('');
+            v[0] = v[0].toUpperCase();
+            v = v.join('');
+        }
+        return v;
+    }).join(' ');
 }
-
 
 
 console.log(titleCase('THE WIND IN THE WILLOWS', 'The In'));
